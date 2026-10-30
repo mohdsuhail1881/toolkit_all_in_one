@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>Toolkit — 24 small tools</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@500&family=Instrument+Serif&display=swap">
+<style>
+:root{--bg:#f3efe6;--sf:#fbf9f4;--ink:#1d1b16;--mut:#6a665b;--ln:#ded8c9;--ac:#c2410c;--on:#fff;--ok:#15803d;--er:#b91c1c;--fd:"Instrument Serif",Georgia,serif;--fb:"Geist",system-ui,-apple-system,"Segoe UI",sans-serif;--fm:"Geist Mono",ui-monospace,Consolas,monospace;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14130f;--sf:#1c1b16;--ink:#efeadd;--mut:#a29d8e;--ln:#2f2d25;--ac:#ff8a4c;--on:#1a0f08;--ok:#4ade80;--er:#f87171;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#14130f;--sf:#1c1b16;--ink:#efeadd;--mut:#a29d8e;--ln:#2f2d25;--ac:#ff8a4c;--on:#1a0f08;--ok:#4ade80;--er:#f87171;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(60rem 28rem at 90% -8%,color-mix(in srgb,var(--ac) 11%,transparent),transparent) var(--bg);color:var(--ink);font:400 16px/1.55 var(--fb);-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:30}
+:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+.skip{position:absolute;left:-999px;top:8px;z-index:40;background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:8px}
+.skip:focus{left:8px}
+.shell{display:grid;grid-template-columns:268px minmax(0,1fr);min-height:100dvh}
+aside{position:sticky;top:env(safe-area-inset-top,0px);height:calc(100dvh - env(safe-area-inset-top,0px));padding:32px 20px 24px;border-right:1px solid var(--ln);display:flex;flex-direction:column;gap:28px}
+.brand{font:400 34px/1 var(--fd);letter-spacing:-.01em}
+.brand small{display:block;margin-top:8px;font:500 12px/1 var(--fm);letter-spacing:.06em;text-transform:uppercase;color:var(--mut)}
+#menu{display:none}
+nav{display:flex;flex-direction:column;gap:2px}
+nav a{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:12px;color:var(--ink);text-decoration:none;font-weight:500;font-size:15px;transition:background-color .15s,color .15s}
+nav a:hover{background:var(--sf)}
+nav a .n{font:500 12px var(--fm);color:var(--mut);min-width:20px}
+nav a[aria-current=page]{background:var(--ink);color:var(--bg)}
+nav a[aria-current=page] .n{color:inherit;opacity:.7}
+.side-note{margin:auto 0 0;font-size:13px;color:var(--mut)}
+main{padding:clamp(22px,5vw,60px);max-width:1120px;width:100%;outline:none}
+.eyebrow{margin:0;font:500 12px var(--fm);letter-spacing:.09em;text-transform:uppercase;color:var(--ac)}
+h1{font:400 clamp(46px,8vw,92px)/.95 var(--fd);letter-spacing:-.02em;margin:10px 0 14px;text-wrap:balance}
+.lede{margin:0;color:var(--mut);max-width:46ch;font-size:17px}
+.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:16px;margin-top:36px}
+.card{grid-column:span 12;background:var(--sf);border:1px solid var(--ln);border-radius:22px;padding:22px;container-type:inline-size;animation:up .5s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--i)*70ms);transition:border-color .2s}
+.card:hover{border-color:color-mix(in srgb,var(--ink) 28%,var(--ln))}
+@keyframes up{from{opacity:0;transform:translateY(12px)}}
+@media(min-width:760px){.v0>:nth-child(1){grid-column:span 7}.v0>:nth-child(2){grid-column:span 5}.v1>:nth-child(1){grid-column:span 5}.v1>:nth-child(2){grid-column:span 7}.v2>:nth-child(2),.v2>:nth-child(3){grid-column:span 6}}
+h2.lbl{font:500 12px/1 var(--fm);text-transform:uppercase;letter-spacing:.09em;color:var(--mut);margin:0 0 18px}
+.big{font:500 clamp(24px,11cqi,44px)/1.1 var(--fm);font-variant-numeric:tabular-nums;letter-spacing:-.02em;text-align:center;margin:10px 0;overflow-wrap:anywhere}
+.mut{color:var(--mut);text-align:center;font-size:14px;margin:6px 0}
+.mono{font-family:var(--fm)}
+.qt{font:400 clamp(22px,7cqi,32px)/1.25 var(--fd);text-align:left;text-wrap:balance}
+.au{text-align:left}
+button{font:500 14px var(--fb);min-height:40px;padding:0 18px;border-radius:999px;border:1px solid var(--ink);background:var(--ink);color:var(--bg);cursor:pointer;touch-action:manipulation;transition:background-color .15s,color .15s,border-color .15s,transform .1s}
+button:hover{background:var(--ac);border-color:var(--ac);color:var(--on)}
+button:active{transform:scale(.97)}
+button.alt{background:transparent;color:var(--ink);border-color:var(--ln)}
+button.alt:hover{background:transparent;border-color:var(--ink);color:var(--ink)}
+button.lk{flex:1;text-align:left;border:0;border-radius:8px;min-height:36px;padding:0 6px}
+button.lk:hover{background:transparent;color:var(--ac)}
+input,select,textarea{display:block;width:100%;font:400 16px var(--fb);padding:10px 12px;min-height:44px;border:1px solid var(--ln);border-radius:12px;background:var(--bg);color:var(--ink);margin-top:10px;transition:border-color .15s}
+input::placeholder,textarea::placeholder{color:var(--mut)}
+input:focus,select:focus,textarea:focus{border-color:var(--ac);outline:none;box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 22%,transparent)}
+textarea{resize:vertical}
+input[type=checkbox]{width:18px;height:18px;min-height:0;margin:0;accent-color:var(--ac)}
+input[type=range]{accent-color:var(--ac);min-height:0;padding:0;border:0;background:none}
+input[type=color]{height:56px;padding:4px;cursor:pointer}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;align-items:center}
+.row>input,.row>select{flex:1;min-width:0;margin:0}
+.row>label{display:flex;align-items:center;gap:6px;font-size:14px}
+ul.l{list-style:none;padding:0;margin:14px 0 0}
+ul.l li{display:flex;gap:8px;align-items:center;padding:8px 0;border-bottom:1px solid var(--ln)}
+ul.l li span{flex:1;overflow-wrap:anywhere}
+ul.l button:not(.lk){min-height:32px;padding:0 12px;font-size:13px}
+.done{text-decoration:line-through;color:var(--mut)}
+.calc{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;max-width:340px;margin:14px auto 0}
+.calc button{min-height:54px;border-radius:16px;padding:0;font-size:18px}
+.calc [data-k="="]{background:var(--ac);border-color:var(--ac);color:var(--on)}
+.bar{height:8px;background:var(--ln);border-radius:9px;overflow:hidden;margin-top:14px}
+.bar i{display:block;height:100%;width:0;border-radius:9px;transition:width .25s,background-color .25s}
+.sw{height:80px;border-radius:16px;border:1px solid var(--ln);margin:10px 0;display:grid;place-items:center;color:#1d1b16;font-weight:600}
+.fq{width:100%;justify-content:space-between;display:flex;align-items:center;text-align:left;margin-top:8px;border-radius:14px;padding:0 16px;min-height:46px}
+.fq::after{content:"+";font:500 18px var(--fm)}
+.fq[aria-expanded=true]::after{content:"\2212"}
+.fq+p{margin:8px 6px 4px;color:var(--mut);font-size:15px}
+.mnav{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;border:1px solid var(--ln);border-radius:16px;padding:10px 14px;background:var(--bg)}
+.mnav ul{list-style:none;padding:0;margin:10px 0 0;width:100%;color:var(--mut)}
+.mnav li{padding:6px 0}
+@container (min-width:420px){.ham{display:none}.mnav ul{display:flex;gap:18px;margin:0;width:auto}.mnav li{padding:0}}
+@media(max-width:899px){
+ .shell{grid-template-columns:minmax(0,1fr)}
+ aside{height:auto;flex-direction:row;align-items:center;justify-content:space-between;padding:12px 16px;border-right:0;border-bottom:1px solid var(--ln);background:var(--bg);z-index:20}
+ .brand{font-size:28px}.brand small{display:none}
+ #menu{display:block}
+ nav{display:none;position:absolute;left:0;right:0;top:100%;background:var(--bg);border-bottom:1px solid var(--ln);padding:8px 12px 14px;grid-template-columns:1fr 1fr;gap:4px}
+ body.menu nav{display:grid}
+ .side-note{display:none}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="shell">
+  <aside>
+    <div class="brand">Toolkit<small>24 tools · 8 groups</small></div>
+    <button id="menu" class="alt" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav id="nav" aria-label="Categories"></nav>
+    <p class="side-note">Tasks and notes are saved in this browser only.</p>
+  </aside>
+  <main id="main" tabindex="-1"></main>
+</div>
+<script>
+const q=(s,r=document)=>r.querySelector(s);
+const p=n=>String(n).padStart(2,'0');
+const esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const S={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+let timers=[];const iv=(f,ms)=>{const id=setInterval(f,ms);timers.push(id);return id};
+const on=(el,h)=>el.addEventListener('click',e=>{const b=e.target.closest('[data-a]');if(b&&h[b.dataset.a])h[b.dataset.a](b,e)});
+const U={Length:{m:1,km:1e3,cm:.01,mi:1609.344,ft:.3048,in:.0254},Weight:{kg:1,g:.001,lb:.45359237,oz:.0283495},Temperature:{C:1,F:1,K:1}};
+const QS=[["The journey of a thousand miles begins with a single step.","Lao Tzu"],["Well begun is half done.","Aristotle"],["Fall seven times, stand up eight.","Japanese proverb"],["Knowledge is power.","Francis Bacon"],["Do what you can, with what you have, where you are.","Theodore Roosevelt"],["Whether you think you can or you think you can’t, you’re right.","Often attributed to Henry Ford"]];
+const SL=[['#c2410c','#f59e0b','Slide one'],['#115e59','#65a30d','Slide two'],['#1e3a8a','#0ea5e9','Slide three']];
+
+const cats=[
+['time','Time',[
+ ['Digital Clock','<div class="big"></div><p class="mut"></p>',el=>{const t=q('.big',el),d=q('p',el);const f=()=>{const n=new Date();t.textContent=n.toLocaleTimeString();d.textContent=n.toLocaleDateString(undefined,{weekday:'long',day:'numeric',month:'long',year:'numeric'})};f();iv(f,1000)}],
+ ['Analog Clock','<svg viewBox="0 0 100 100" width="150" style="display:block;margin:auto"><circle cx="50" cy="50" r="47" fill="none" stroke="currentColor" stroke-width="2"/><line class="h" x1="50" y1="50" x2="50" y2="30" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><line class="m" x1="50" y1="50" x2="50" y2="16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line class="s" x1="50" y1="50" x2="50" y2="12" stroke="var(--ac)" stroke-width="1"/></svg>',el=>{const f=()=>{const n=new Date(),s=n.getSeconds(),m=n.getMinutes()+s/60,h=n.getHours()%12+m/60;[['.h',h*30],['.m',m*6],['.s',s*6]].forEach(([c,a])=>q(c,el).setAttribute('transform',`rotate(${a} 50 50)`))};f();iv(f,1000)}],
+ ['Stopwatch','<div class="big">00:00.00</div><div class="row"><button data-a="go">Start</button><button class="alt" data-a="pause">Pause</button><button class="alt" data-a="reset">Reset</button></div>',el=>{let t0=0,acc=0,id=null;const d=q('.big',el);const show=()=>{const ms=acc+(id?Date.now()-t0:0);d.textContent=p(Math.floor(ms/6e4))+':'+p(Math.floor(ms/1e3)%60)+'.'+p(Math.floor(ms/10)%100)};const pause=()=>{if(id){acc+=Date.now()-t0;clearInterval(id);id=null;show()}};on(el,{go(){if(!id){t0=Date.now();id=iv(show,50)}},pause,reset(){pause();acc=0;show()}})}]
+]],
+['productivity','Productivity',[
+ ['To-Do List','<div class="row"><input placeholder="New task" aria-label="Task"><button data-a="add">Add</button></div><ul class="l"></ul>',el=>{let L=S.get('todos',[]);const ul=q('ul',el),inp=q('input',el);const d=()=>{ul.innerHTML=L.map((t,i)=>`<li><input type="checkbox" data-a="chk" data-i="${i}" ${t.d?'checked':''}><span class="${t.d?'done':''}">${esc(t.x)}</span><button class="alt" data-a="edit" data-i="${i}" aria-label="Edit task">Edit</button><button class="alt" data-a="del" data-i="${i}" aria-label="Delete">×</button></li>`).join('');S.set('todos',L)};const add=()=>{if(inp.value.trim()){L.push({x:inp.value.trim(),d:0});inp.value='';d()}};inp.onkeydown=e=>{if(e.key=='Enter')add()};on(el,{add,chk(b){L[+b.dataset.i].d=b.checked?1:0;d()},del(b){L.splice(+b.dataset.i,1);d()},edit(b){inp.value=L[+b.dataset.i].x;L.splice(+b.dataset.i,1);d();inp.focus()}});d()}],
+ ['Notes App','<input placeholder="Title" aria-label="Title"><textarea rows="3" placeholder="Write a note…" aria-label="Note"></textarea><div class="row"><button data-a="save">Save</button></div><ul class="l"></ul>',el=>{let N=S.get('notes',[]),cur=-1;const t=q('input',el),x=q('textarea',el),u=q('ul',el);const d=()=>{u.innerHTML=N.map((n,i)=>`<li><button class="lk" data-a="open" data-i="${i}">${esc(n.t||'Untitled')}</button><button class="alt" data-a="del" data-i="${i}" aria-label="Delete">×</button></li>`).join('');S.set('notes',N)};on(el,{save(){if(!t.value&&!x.value)return;const n={t:t.value,x:x.value};if(cur<0)N.push(n);else N[cur]=n;cur=-1;t.value=x.value='';d()},open(b){cur=+b.dataset.i;t.value=N[cur].t;x.value=N[cur].x},del(b){N.splice(+b.dataset.i,1);cur=-1;d()}});d()}],
+ ['Countdown Timer','<div class="big">00:00</div><div class="row"><input type="number" min="0" step="0.5" placeholder="Minutes" aria-label="Minutes"></div><div class="row"><button data-a="go">Start</button><button class="alt" data-a="pause">Pause</button><button class="alt" data-a="reset">Reset</button></div>',el=>{let left=0,id=null;const d=q('.big',el),m=q('input',el);const show=()=>d.textContent=p(Math.floor(left/60))+':'+p(left%60);const pause=()=>{clearInterval(id);id=null};on(el,{go(){if(id)return;if(!left)left=Math.round((+m.value||0)*60);if(left<=0)return;show();id=iv(()=>{left--;show();if(left<=0){pause();d.textContent="Time’s up!"}},1000)},pause,reset(){pause();left=0;d.textContent='00:00'}})}]
+]],
+['life','Health & Money',[
+ ['Age Calculator','<input type="date" aria-label="Date of birth"><div class="big" style="font-size:20px" aria-live="polite">—</div>',el=>{const i=q('input',el),r=q('.big',el);i.oninput=()=>{if(!i.value)return;const b=new Date(i.value),n=new Date();if(b>n){r.textContent='Date is in the future';return}let y=n.getFullYear()-b.getFullYear(),m=n.getMonth()-b.getMonth(),d=n.getDate()-b.getDate();if(d<0){m--;d+=new Date(n.getFullYear(),n.getMonth(),0).getDate()}if(m<0){y--;m+=12}r.textContent=`${y}y ${m}m ${d}d`}}],
+ ['BMI Calculator','<input type="number" placeholder="Weight (kg)" aria-label="Weight in kg"><input type="number" placeholder="Height (cm)" aria-label="Height in cm"><div class="big" aria-live="polite">—</div><p class="mut" aria-live="polite"></p>',el=>{const[w,h]=el.querySelectorAll('input'),r=q('.big',el),c=q('.mut',el);el.oninput=()=>{const b=+w.value/((+h.value/100)**2);if(!isFinite(b)||b<=0){r.textContent='—';c.textContent='';return}r.textContent=b.toFixed(1);c.textContent=b<18.5?'Underweight':b<25?'Normal':b<30?'Overweight':'Obese'}}],
+ ['Tip Calculator','<input type="number" placeholder="Bill amount" aria-label="Bill"><input type="number" value="10" aria-label="Tip percent"><input type="number" value="1" min="1" aria-label="People"><p class="mut">Tip %, then number of people</p><p class="mut out"></p>',el=>{const[b,t,n]=el.querySelectorAll('input'),r=q('.out',el);el.oninput=()=>{const bill=+b.value,tip=bill*t.value/100,k=Math.max(1,+n.value||1);r.innerHTML=`Tip <b>${tip.toFixed(2)}</b> · Total <b>${(bill+tip).toFixed(2)}</b> · Each <b>${((bill+tip)/k).toFixed(2)}</b>`}}]
+]],
+['math','Math',[
+ ['Calculator','<div class="big">0</div><div class="calc">'+['7','8','9','÷','4','5','6','×','1','2','3','−','0','.','=','+','C'].map(k=>`<button class="${/\d|\./.test(k)?'alt':''}" data-k="${k}" style="${k=='C'?'grid-column:span 4':''}">${k}</button>`).join('')+'</div>',el=>{let cur='0',prev=null,op=null,fresh=false;const d=q('.big',el);const calc=(a,b,o)=>o=='+'?a+b:o=='−'?a-b:o=='×'?a*b:b?a/b:NaN;el.addEventListener('click',e=>{const k=e.target.dataset.k;if(!k)return;if(/\d/.test(k)){cur=(cur=='0'||fresh)?k:cur+k;fresh=false}else if(k=='.'){if(fresh){cur='0';fresh=false}if(!cur.includes('.'))cur+='.'}else if(k=='C'){cur='0';prev=op=null}else{if(op&&!fresh)cur=String(+calc(prev,+cur,op).toFixed(10));if(k=='='){op=prev=null}else{prev=+cur;op=k}fresh=true}d.textContent=cur=='NaN'?'Error':cur})}],
+ ['Unit Converter','<select><option>Length</option><option>Weight</option><option>Temperature</option></select><input type="number" value="1" aria-label="Value"><div class="row"><select></select><span>→</span><select></select></div><div class="big">—</div>',el=>{const[cs,fs,ts]=el.querySelectorAll('select'),v=q('input',el),r=q('.big',el);const go=()=>{const n=+v.value,a=fs.value,b=ts.value;let o;if(cs.value=='Temperature'){const c=a=='C'?n:a=='F'?(n-32)*5/9:n-273.15;o=b=='C'?c:b=='F'?c*9/5+32:c+273.15}else o=n*U[cs.value][a]/U[cs.value][b];r.textContent=isFinite(o)?+o.toPrecision(6):'—'};const fill=()=>{fs.innerHTML=ts.innerHTML=Object.keys(U[cs.value]).map(x=>`<option>${x}</option>`).join('');ts.selectedIndex=1;go()};el.addEventListener('input',e=>e.target==cs?fill():go());fill()}],
+ ['Random Number','<div class="row"><input type="number" value="1" aria-label="Min"><input type="number" value="100" aria-label="Max"></div><div class="big">—</div><div class="row"><button data-a="gen">Generate</button></div>',el=>{const[a,b]=el.querySelectorAll('input'),r=q('.big',el);on(el,{gen(){let x=Math.ceil(+a.value),y=Math.floor(+b.value);if(x>y){const t=x;x=y;y=t}r.textContent=x+Math.floor(Math.random()*(y-x+1))}})}]
+]],
+['security','Security',[
+ ['Password Generator','<div class="big mono" style="font-size:18px">—</div><div class="row"><input type="range" min="6" max="32" value="14" aria-label="Length"><span class="len">14</span></div><div class="row"><label><input type="checkbox" checked>A–Z</label><label><input type="checkbox" checked>0–9</label><label><input type="checkbox" checked>#!%</label></div><div class="row"><button data-a="gen">Generate</button><button class="alt" data-a="copy">Copy</button></div>',el=>{const o=q('.big',el),r=q('[type=range]',el),c=el.querySelectorAll('[type=checkbox]');const g=()=>{const L=+r.value;q('.len',el).textContent=L;let s='abcdefghijklmnopqrstuvwxyz';if(c[0].checked)s+='ABCDEFGHIJKLMNOPQRSTUVWXYZ';if(c[1].checked)s+='0123456789';if(c[2].checked)s+='!@#$%^&*-_?';const a=new Uint32Array(L);crypto.getRandomValues(a);o.textContent=[...a].map(x=>s[x%s.length]).join('')};el.addEventListener('input',g);on(el,{gen:g,copy(){try{navigator.clipboard.writeText(o.textContent).catch(()=>{})}catch(e){}}});g()}],
+ ['Strength Checker','<input placeholder="Type a password" aria-label="Password"><div class="bar"><i></i></div><p class="mut" aria-live="polite">Enter a password</p>',el=>{const i=q('input',el),b=q('.bar i',el),l=q('.mut',el);const N=['Enter a password','Weak','Weak','Fair','Strong','Very strong'],C=['#9aa1b2','#ef4444','#ef4444','#f59e0b','#22c55e','#16a34a'];i.oninput=()=>{const v=i.value;let s=0;if(v.length>=8)s++;if(v.length>=12)s++;if(/[a-z]/.test(v)&&/[A-Z]/.test(v))s++;if(/\d/.test(v))s++;if(/[^\w\s]/.test(v))s++;if(v)s=Math.max(s,1);b.style.width=s*20+'%';b.style.background=C[s];l.textContent=N[s]}}],
+ ['Login & Signup UI','<div class="row"><button class="alt" data-a="login">Login</button><button class="alt" data-a="signup">Sign up</button></div><input type="email" placeholder="Email" aria-label="Email"><input type="password" placeholder="Password (8+ chars)" aria-label="Password"><input type="password" class="cf" placeholder="Confirm password" aria-label="Confirm" hidden><div class="row"><button data-a="submit">Log in</button></div><p class="mut msg" role="status"></p>',el=>{let m='login';const cf=q('.cf',el),msg=q('.msg',el),sub=q('[data-a=submit]',el);on(el,{login(){m='login';cf.hidden=true;sub.textContent='Log in'},signup(){m='signup';cf.hidden=false;sub.textContent='Sign up'},submit(){const[e,pw,c]=el.querySelectorAll('input');const r=!/^\S+@\S+\.\S+$/.test(e.value)?'Enter a valid email.':pw.value.length<8?'Password needs 8+ characters.':m=='signup'&&c.value!=pw.value?'Passwords don’t match.':'';msg.textContent=r||(m=='login'?'Logged in (demo) ✓':'Account created (demo) ✓');msg.style.color=r?'#ef4444':'#16a34a'}})}]
+]],
+['text','Text',[
+ ['Word Counter','<textarea rows="4" placeholder="Paste or type text" aria-label="Text"></textarea><p class="mut">0 words · 0 characters</p>',el=>{const t=q('textarea',el),r=q('.mut',el);t.oninput=()=>{const v=t.value.trim();r.textContent=`${v?v.split(/\s+/).length:0} words · ${t.value.length} characters`}}],
+ ['Character Limit Checker','<input type="number" value="280" aria-label="Limit"><textarea rows="3" placeholder="Type here" aria-label="Text"></textarea><div class="big" style="font-size:22px">0 / 280</div>',el=>{const l=q('input',el),t=q('textarea',el),r=q('.big',el);el.oninput=()=>{const L=+l.value||0,n=t.value.length;r.textContent=`${n} / ${L}`;r.style.color=n>L?'#ef4444':''}}],
+ ['Random Quote','<p class="qt" style="margin:6px 0"></p><p class="mut au"></p><div class="row"><button data-a="n">New quote</button></div>',el=>{const n=()=>{const[a,b]=QS[Math.floor(Math.random()*QS.length)];q('.qt',el).textContent='“'+a+'”';q('.au',el).textContent='— '+b};on(el,{n});n()}]
+]],
+['fun','Fun & Design',[
+ ['Color Picker','<input type="color" value="#4f46e5" aria-label="Color"><div class="sw"></div><p class="mut mono"></p><div class="row"><button data-a="r">Random color</button></div>',el=>{const i=q('input',el),s=q('.sw',el),t=q('.mut',el);const u=()=>{const h=i.value,n=parseInt(h.slice(1),16);s.style.background=h;t.textContent=`${h.toUpperCase()} · rgb(${n>>16}, ${n>>8&255}, ${n&255})`};i.oninput=u;on(el,{r(){i.value='#'+Math.floor(Math.random()*0xffffff).toString(16).padStart(6,'0');u()}});u()}],
+ ['Background Changer','<div class="sw" style="height:90px;background:#bfdbfe">Preview</div><div class="row">'+['#fde68a','#a7f3d0','#bfdbfe','#fbcfe8'].map(c=>`<button class="alt" style="background:${c}" data-a="bg" data-c="${c}" aria-label="${c}">&nbsp;&nbsp;&nbsp;</button>`).join('')+'<button data-a="rnd">Random</button></div>',el=>{const s=q('.sw',el);on(el,{bg(b){s.style.background=b.dataset.c},rnd(){s.style.background=`hsl(${Math.floor(Math.random()*360)} 80% 80%)`}})}],
+ ['Counter','<div class="big">0</div><div class="row"><button data-a="m">−</button><button data-a="p">+</button><button class="alt" data-a="z">Reset</button></div>',el=>{let n=0;const d=q('.big',el);on(el,{m(){d.textContent=--n},p(){d.textContent=++n},z(){n=0;d.textContent=0}})}]
+]],
+['ui','UI Components',[
+ ['FAQ Accordion','<button class="alt fq" data-a="fq" aria-expanded="false">What is this hub?</button><p hidden>One page that bundles 24 small tools in 8 groups.</p><button class="alt fq" data-a="fq" aria-expanded="false">Is my data saved?</button><p hidden>Tasks and notes stay in your browser on this device only.</p><button class="alt fq" data-a="fq" aria-expanded="false">Can I add more tools?</button><p hidden>Yes — add one array entry to the right category.</p>',el=>on(el,{fq(b){const x=b.nextElementSibling;x.hidden=!x.hidden;b.setAttribute('aria-expanded',!x.hidden)}})],
+ ['Image Slider','<div class="sw sl" style="height:110px;color:#fff"></div><div class="row"><button class="alt" data-a="prev">Prev</button><button class="alt" data-a="next">Next</button></div>',el=>{let i=0;const d=()=>{const[a,b,t]=SL[i],s=q('.sl',el);s.style.background=`linear-gradient(135deg,${a},${b})`;s.textContent=`${t} (${i+1}/3)`};on(el,{prev(){i=(i+2)%3;d()},next(){i=(i+1)%3;d()}});d()}],
+ ['Responsive Navbar','<div class="mnav"><b>Brand</b><button class="alt ham" data-a="h" aria-label="Toggle menu" aria-expanded="false">Menu</button><ul hidden><li>Home</li><li>About</li><li>Contact</li></ul></div><p class="mut">Widen the card to see the full menu</p>',el=>on(el,{h(b){const u=q('ul',el);u.hidden=!u.hidden;b.setAttribute('aria-expanded',!u.hidden)}})]
+]]
+];
+
+const D={time:'Clocks and timers that keep you on schedule.',productivity:'Capture tasks and notes, then count down to focus.',life:'Everyday numbers: age, body metrics and the bill.',math:'Calculate, convert and roll the dice.',security:'Make strong passwords and test the ones you already use.',text:'Count words, watch limits, find a line worth reading.',fun:'Pick colours, change backdrops, tally things up.',ui:'Small interface patterns you can copy into your own projects.'};
+const nav=q('#nav'),main=q('#main'),btn=q('#menu');
+nav.innerHTML=cats.map((c,i)=>`<a href="#${c[0]}" data-id="${c[0]}"><span class="n">${p(i+1)}</span>${c[1]}</a>`).join('');
+const setMenu=o=>{document.body.classList.toggle('menu',o);btn.setAttribute('aria-expanded',o);btn.textContent=o?'Close':'Menu'};
+btn.onclick=()=>setMenu(!document.body.classList.contains('menu'));
+addEventListener('keydown',e=>{if(e.key=='Escape')setMenu(false)});
+function show(){
+  timers.forEach(clearInterval);timers=[];setMenu(false);
+  const id=location.hash.slice(1),i=Math.max(0,cats.findIndex(x=>x[0]==id)),c=cats[i];
+  nav.querySelectorAll('a').forEach(a=>a.dataset.id==c[0]?a.setAttribute('aria-current','page'):a.removeAttribute('aria-current'));
+  document.title=c[1]+' · Toolkit';
+  main.innerHTML=`<p class="eyebrow">${p(i+1)} / ${p(cats.length)}</p><h1>${c[1]}</h1><p class="lede">${D[c[0]]}</p><div class="grid v${i%3}"></div>`;
+  const g=q('.grid',main);
+  c[2].forEach(([t,h,f],k)=>{const s=document.createElement('section');s.className='card';s.style.setProperty('--i',k);s.innerHTML=`<h2 class="lbl">${t}</h2>`+h;g.append(s);f(s)});
+  scrollTo(0,0);
+}
+addEventListener('hashchange',show);show();
+</script>
+</body>
+</html>
